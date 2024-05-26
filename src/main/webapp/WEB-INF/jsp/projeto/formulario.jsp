@@ -36,6 +36,7 @@
                  <form:option value="EM_ANALISE">
                     Em Análise
                  </form:option>
+            <c:if test="${projeto.id != null}">
                  <form:option value="ANALISE_REALIZADA">
                     Análise Realizada
                  </form:option>
@@ -57,6 +58,7 @@
                  <form:option value="CANCELADO">
                     Cancelado
                  </form:option>
+            </c:if>
              </form:select>
              <form:errors path="status" cssClass="text-warning" />
         </div>
