@@ -17,16 +17,16 @@
    <table class="table table-striped">
     <thead>
      <tr>
-      <th width="10%">Nome</th>
-      <th width="10%">Gerente</th>
-      <th width="8%">Status</th>
-      <th width="8%">Data Início</th>
-      <th width="8%">Data Previsão Fim</th>
-      <th width="8%">Data Fim</th>
-      <th width="8%">Orçamento</th>
-      <th width="10%">Descrição</th>
-      <th width="10%">Risco</th>
-      <th width="20%">Ações</th>
+      <th style="width: 10%">Nome</th>
+      <th style="width: 10%">Gerente</th>
+      <th style="width: 8%">Status</th>
+      <th style="width: 8%">Data Início</th>
+      <th style="width: 8%">Data Previsão Fim</th>
+      <th style="width: 8%">Data Fim</th>
+      <th style="width: 8%">Orçamento</th>
+      <th style="width: 10%">Descrição</th>
+      <th style="width: 10%">Risco</th>
+      <th style="width: 20%">Ações</th>
      </tr>
     </thead>
     <tbody>

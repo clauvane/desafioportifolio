@@ -17,12 +17,12 @@
    <table class="table table-striped">
     <thead>
      <tr>
-      <th width="30%">Nome</th>
-      <th width="20%">CPF</th>
-      <th width="20%">Data de Nascimento</th>
-      <th width="5%">Funcionário</th>
-      <th width="5%">Gerente</th>
-      <th width="20%">Ações</th>
+      <th style="width: 30%">Nome</th>
+      <th style="width: 20%">CPF</th>
+      <th style="width: 20%">Data de Nascimento</th>
+      <th style="width: 5%">Funcionário</th>
+      <th style="width: 5%">Gerente</th>
+      <th style="width: 20%">Ações</th>
      </tr>
     </thead>
     <tbody>

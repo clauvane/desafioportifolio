@@ -13,9 +13,9 @@
    <table class="table table-striped">
     <thead>
      <tr>
-      <th width="35%">Pessoa</th>
-      <th width="35%">Projeto</th>
-      <th width="20%">Ações</th>
+      <th style="width: 35%">Pessoa</th>
+      <th style="width: 35%">Projeto</th>
+      <th style="width: 35%">Ações</th>
      </tr>
     </thead>
     <tbody>
