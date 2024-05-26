@@ -22,7 +22,7 @@ public class Pessoa implements Serializable {
     @Column(nullable = false, length = 100)
     private String nome;
 
-    @Column(name = "data_nascimento", columnDefinition = "DATE")
+    @Column(name = "datanascimento", columnDefinition = "DATE")
     private Date dataNascimento;
 
     @Column(length = 14)

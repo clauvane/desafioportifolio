@@ -21,7 +21,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(MembroController.class)
-public class MembroControllerTest {
+class MembroControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -36,14 +36,14 @@ public class MembroControllerTest {
     private ProjetoService projetoService;
 
     @Test
-    public void testGetAllMembros() throws Exception {
+    void testGetAllMembros() throws Exception {
         mockMvc.perform(get("/api/membros")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
 
     @Test
-    public void testGetMembroById() throws Exception {
+    void testGetMembroById() throws Exception {
         MembroId membroId = new MembroId(1L, 1L);
         Membro membro = new Membro(membroId);
         when(membroService.findById(membroId)).thenReturn(Optional.of(membro));
@@ -54,7 +54,7 @@ public class MembroControllerTest {
     }
 
     @Test
-    public void testCreateMembro() throws Exception {
+    void testCreateMembro() throws Exception {
         when(
                 pessoaService.findById(1L)
         ).thenReturn(
@@ -74,7 +74,7 @@ public class MembroControllerTest {
     }
 
     @Test
-    public void testUpdateMembro() throws Exception {
+    void testUpdateMembro() throws Exception {
         when(
                 pessoaService.findById(1L)
         ).thenReturn(
@@ -94,7 +94,7 @@ public class MembroControllerTest {
     }
 
     @Test
-    public void testDeleteMembro() throws Exception {
+    void testDeleteMembro() throws Exception {
         when(
                 pessoaService.findById(1L)
         ).thenReturn(

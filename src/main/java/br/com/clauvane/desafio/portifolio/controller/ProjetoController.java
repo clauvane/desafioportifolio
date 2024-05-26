@@ -30,7 +30,7 @@ public class ProjetoController {
     private static final String FORM_ACTION = "formAction";
     private static final String PROJETO_FORMULARIO = "projeto/formulario";
     private static final String PROJETO_POSSUI_MEMBROS_CADASTRADOS = "Projeto possui membros cadastrados.";
-    private static final String PROJETO_SALVO_COM_SUCESSO = "Pessoa salva com sucesso";
+    private static final String PROJETO_SALVO_COM_SUCESSO = "Projeto salvo com sucesso";
     private static final String PROJETO = "projeto";
     private static final String MSG = "msg";
     private static final String SUCESSO = "SUCESSO";
@@ -83,6 +83,7 @@ public class ProjetoController {
         BeanUtils.copyProperties(projetoDto, projeto);
         projetoService.saveOrUpdate(projeto);
         model.addAttribute(PROJETO, new Projeto());
+        model.addAttribute(PESSOAS, pessoaService.findAllGerentes());
         model.addAttribute(MSG, PROJETO_SALVO_COM_SUCESSO);
         model.addAttribute(TIPO_MSG, SUCESSO);
         return PROJETO_FORMULARIO;
@@ -120,6 +121,7 @@ public class ProjetoController {
         projetoService.saveOrUpdate(projeto);
         List<Projeto> projetos = projetoService.findAll();
         model.addAttribute(PROJETOS, projetos);
+        model.addAttribute(PESSOAS, pessoaService.findAllGerentes());
         model.addAttribute(MSG, PROJETO_ATUALIZADO_COM_SUCESSO);
         model.addAttribute(TIPO_MSG, SUCESSO);
         return PROJETO_LISTAGEM;
@@ -166,12 +168,13 @@ public class ProjetoController {
             throw new IllegalArgumentException(PROJETO_NAO_ENCONTRADO);
         }
 
-        List<Projeto> projetos = projetoService.findAll();
-        model.addAttribute(PROJETOS, projetos);
         if(hasErrorForDelete(projeto.get(), model)) {
             model.addAttribute(TIPO_MSG, ERRO);
         } else {
             projetoService.delete(projeto.get());
+
+            List<Projeto> projetos = projetoService.findAll();
+            model.addAttribute(PROJETOS, projetos);
             model.addAttribute(MSG, PROJETO_REMOVIDO_COM_SUCESSO);
             model.addAttribute(TIPO_MSG, SUCESSO);
         }

@@ -56,7 +56,7 @@ public class MembroController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(PESSOA_NAO_ENCONTRADA);
         }
 
-        if(!pessoa.get().getFuncionario()) {
+        if(!Boolean.TRUE.equals(pessoa.get().getFuncionario())) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Pessoa não é funcionário.");
         }
 

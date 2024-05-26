@@ -9,10 +9,11 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
-public class ProjetoServiceTest {
+class ProjetoServiceTest {
 
     @Autowired
     private ProjetoService projetoService;
@@ -21,46 +22,52 @@ public class ProjetoServiceTest {
     private ProjetoService mockProjetoService;
 
     @Test
-    public void testGetAllProjetos() {
+    void testGetAllProjetos() {
         projetoService.findAll();
         verify(mockProjetoService, times(1)).findAll();
     }
 
     @Test
-    public void testGetProjetoById() {
+    void testGetProjetoById() {
         Projeto projeto = new Projeto(1L);
         when(mockProjetoService.findById(1L)).thenReturn(Optional.of(projeto));
 
-        Optional<Projeto> returnedProjeto = projetoService.findById(1L);
+        Optional<Projeto> projetoBd = projetoService.findById(1L);
 
-        assertThat(returnedProjeto).isNotNull();
-        assertThat(returnedProjeto.get()).isEqualTo(projeto);
+        assertAll("Deveria retornar o projeto",
+            () -> assertThat(projetoBd).isNotNull(),
+            () -> assertThat(projeto).isEqualTo(projetoBd.get())
+        );
     }
 
     @Test
-    public void testCreateProjeto() {
+    void testCreateProjeto() {
         Projeto projeto = new Projeto(1L);
         when(mockProjetoService.saveOrUpdate(projeto)).thenReturn(projeto);
 
         Projeto returnedProjeto = projetoService.saveOrUpdate(projeto);
 
-        assertThat(returnedProjeto).isNotNull();
-        assertThat(returnedProjeto).isEqualTo(projeto);
+        assertAll("Deveria retornar o projeto salvo",
+            () -> assertThat(returnedProjeto).isNotNull(),
+            () -> assertThat(returnedProjeto).isEqualTo(projeto)
+        );
     }
 
     @Test
-    public void testUpdateProjeto() {
+    void testUpdateProjeto() {
         Projeto projeto = new Projeto(1L);
         when(mockProjetoService.saveOrUpdate(projeto)).thenReturn(projeto);
 
         Projeto returnedProjeto = projetoService.saveOrUpdate(projeto);
 
-        assertThat(returnedProjeto).isNotNull();
-        assertThat(returnedProjeto).isEqualTo(projeto);
+        assertAll("Deveria retornar o projeto salvo",
+            () -> assertThat(returnedProjeto).isNotNull(),
+            () -> assertThat(returnedProjeto).isEqualTo(projeto)
+        );
     }
 
     @Test
-    public void testDeleteProjeto() {
+    void testDeleteProjeto() {
         Projeto projeto = new Projeto(1L);
         doNothing().when(mockProjetoService).delete(projeto);
 

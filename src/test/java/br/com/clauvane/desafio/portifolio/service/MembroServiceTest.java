@@ -10,10 +10,11 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
-public class MembroServiceTest {
+class MembroServiceTest {
 
     @Autowired
     private MembroService membroService;
@@ -22,59 +23,65 @@ public class MembroServiceTest {
     private MembroService mockMembroService;
 
     @Test
-    public void testGetAllMembros() {
+    void testGetAllMembros() {
         membroService.findAll();
         verify(mockMembroService, times(1)).findAll();
     }
 
     @Test
-    public void testGetAllMembrosByProjeto() {
+    void testGetAllMembrosByProjeto() {
         membroService.findAllByProjeto(1L);
         verify(mockMembroService, times(1)).findAllByProjeto(any());
     }
 
     @Test
-    public void testGetAllMembrosByPessoa() {
+    void testGetAllMembrosByPessoa() {
         membroService.findAllByPessoa(1L);
         verify(mockMembroService, times(1)).findAllByPessoa(any());
     }
 
     @Test
-    public void testGetMembroById() {
+    void testGetMembroById() {
         MembroId membroId = new MembroId(1L, 1L);
         Membro membro = new Membro(membroId);
         when(mockMembroService.findById(membroId)).thenReturn(Optional.of(membro));
 
-        Optional<Membro> returnedMembro = membroService.findById(membroId);
+        Optional<Membro> membroBd = membroService.findById(membroId);
 
-        assertThat(returnedMembro).isNotNull();
-        assertThat(returnedMembro.get()).isEqualTo(membro);
+        assertAll("Deveria retornar o membro",
+            () -> assertThat(membroBd).isNotNull(),
+            () -> assertThat(membro).isEqualTo(membroBd.get())
+        );
     }
 
     @Test
-    public void testCreateMembro() {
+    void testCreateMembro() {
         Membro membro = new Membro(new MembroId(1L, 1L));
         when(mockMembroService.saveOrUpdate(membro)).thenReturn(membro);
 
-        Membro returnedMembro = membroService.saveOrUpdate(membro);
+        Membro membroBd = membroService.saveOrUpdate(membro);
 
-        assertThat(returnedMembro).isNotNull();
-        assertThat(returnedMembro).isEqualTo(membro);
+        assertAll("Deveria retornar o membro salvo",
+            () -> assertThat(membroBd).isNotNull(),
+            () -> assertThat(membroBd).isEqualTo(membro)
+        );
     }
 
     @Test
-    public void testUpdateMembro() {
+    void testUpdateMembro() {
         Membro membro = new Membro(new MembroId(1L, 1L));
         when(mockMembroService.saveOrUpdate(membro)).thenReturn(membro);
 
-        Membro returnedMembro = membroService.saveOrUpdate(membro);
+        Membro membroBd = membroService.saveOrUpdate(membro);
 
-        assertThat(returnedMembro).isNotNull();
-        assertThat(returnedMembro).isEqualTo(membro);
+        assertAll("Deveria retornar o membro atualizado",
+            () -> assertThat(membroBd).isNotNull(),
+            () -> assertThat(membroBd).isEqualTo(membro)
+        );
     }
 
     @Test
-    public void testDeleteMembro() {
+    void testDeleteMembro() {
         Membro membro = new Membro(new MembroId(1L, 1L));
         doNothing().when(mockMembroService).delete(membro);
 

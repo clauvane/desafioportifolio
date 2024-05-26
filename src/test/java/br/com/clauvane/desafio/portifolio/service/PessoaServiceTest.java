@@ -9,10 +9,11 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
-public class PessoaServiceTest {
+class PessoaServiceTest {
 
     @Autowired
     private PessoaService pessoaService;
@@ -21,46 +22,52 @@ public class PessoaServiceTest {
     private PessoaService mockPessoaService;
 
     @Test
-    public void testGetAllPessoas() {
+    void testGetAllPessoas() {
         pessoaService.findAll();
         verify(mockPessoaService, times(1)).findAll();
     }
 
     @Test
-    public void testGetPessoaById() {
+    void testGetPessoaById() {
         Pessoa pessoa = new Pessoa(1L);
         when(mockPessoaService.findById(1L)).thenReturn(Optional.of(pessoa));
 
         Optional<Pessoa> returnedPessoa = pessoaService.findById(1L);
 
-        assertThat(returnedPessoa).isNotNull();
-        assertThat(returnedPessoa.get()).isEqualTo(pessoa);
+        assertAll("Deveria retornar a pessoa",
+            () -> assertThat(returnedPessoa).isNotNull(),
+            () -> assertThat(pessoa).isEqualTo(returnedPessoa.get())
+        );
     }
 
     @Test
-    public void testCreatePessoa() {
+    void testCreatePessoa() {
         Pessoa pessoa = new Pessoa(1L);
         when(mockPessoaService.saveOrUpdate(pessoa)).thenReturn(pessoa);
 
         Pessoa returnedPessoa = pessoaService.saveOrUpdate(pessoa);
 
-        assertThat(returnedPessoa).isNotNull();
-        assertThat(returnedPessoa).isEqualTo(pessoa);
+        assertAll("Deveria retornar a pessoa salva",
+            () -> assertThat(returnedPessoa).isNotNull(),
+            () -> assertThat(returnedPessoa).isEqualTo(pessoa)
+        );
     }
 
     @Test
-    public void testUpdatePessoa() {
+    void testUpdatePessoa() {
         Pessoa pessoa = new Pessoa(1L);
         when(mockPessoaService.saveOrUpdate(pessoa)).thenReturn(pessoa);
 
         Pessoa returnedPessoa = pessoaService.saveOrUpdate(pessoa);
 
-        assertThat(returnedPessoa).isNotNull();
-        assertThat(returnedPessoa).isEqualTo(pessoa);
+        assertAll("Deveria retornar a pessoa atualizada",
+            () -> assertThat(returnedPessoa).isNotNull(),
+            () -> assertThat(returnedPessoa).isEqualTo(pessoa)
+        );
     }
 
     @Test
-    public void testDeletePessoa() {
+    void testDeletePessoa() {
         Pessoa pessoa = new Pessoa(1L);
         doNothing().when(mockPessoaService).delete(pessoa);
 
